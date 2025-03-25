@@ -1,14 +1,13 @@
 const express = require("express");
 const app = express();
 const PORT = 8000;
-const mongoose = require("./connection");//to access database
-const taskRoutes = require("./routes/taskRoutes");//to access task routes
+const mongoose = require("./connection");//connects to mongodb
+const taskRoutes = require("./routes/taskRoutes");//import task related api routes
 
 //middlewares
-app.use(express.urlencoded({extended: true}));
-app.use(taskRoutes);
-app.use(express.json());
-app.use("/api/todo", taskRoutes);
+app.use(express.urlencoded({extended: true}));// extended: true allows parsing nested objects
+app.use(express.json());//parses incoming application/json requests
+app.use("/api/todo", taskRoutes);//Any request that matches /api/todo/* will be handled by taskRoutes
 
 // Global Error Handling Middleware with HTTP Status Codes
 app.use((err, req, res, next) => {
