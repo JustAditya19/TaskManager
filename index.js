@@ -1,32 +1,40 @@
 const express = require("express");
+const dotenv = require("dotenv");
+const connectDB = require("./connection"); // Import DB connection
+const taskRoutes = require("./routes/taskRoutes"); // Import API routes
+
+dotenv.config(); // Load environment variables
+
 const app = express();
-const PORT = 8000;
-const mongoose = require("./connection");//connects to mongodb
-const taskRoutes = require("./routes/taskRoutes");//import task related api routes
+const PORT = process.env.PORT || 8000;
 
-//middlewares
-app.use(express.urlencoded({extended: true}));// extended: true allows parsing nested objects
-app.use(express.json());//parses incoming application/json requests
-app.use("/api/todo", taskRoutes);//Any request that matches /api/todo/* will be handled by taskRoutes
+// Connect to MongoDB
+connectDB();
 
-// Global Error Handling Middleware with HTTP Status Codes
+// Middlewares
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Define API routes
+app.use("/api/todo", taskRoutes);
+
+// Global Error Handling Middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
     
     let statusCode = err.status || 500;
-    let message = err.message || 'Internal Server Error';
-    
-    if (err.name === 'ValidationError') {
+    let message = err.message || "Internal Server Error";
+
+    if (err.name === "ValidationError") {
         statusCode = 400;
-        message = 'Bad Request: Invalid Input';
-    } else if (err.name === 'CastError') {
+        message = "Bad Request: Invalid Input";
+    } else if (err.name === "CastError") {
         statusCode = 404;
-        message = 'Not Found: Resource does not exist';
+        message = "Not Found: Resource does not exist";
     }
-    
-    res.status(statusCode).json({
-        error: message
-    });
+
+    res.status(statusCode).json({ error: message });
 });
 
-app.listen(8000, () => console.log(`API running on PORT ${PORT}`));
+// Start Server
+app.listen(PORT, () => console.log(`🚀 API running on PORT ${PORT}`));
