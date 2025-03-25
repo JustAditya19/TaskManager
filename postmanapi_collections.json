@@ -1,0 +1,142 @@
+[   
+    {
+        "requests": {
+          {
+            "name": "Create Task",
+            "method": "POST",
+            "url": "http://localhost:8000/api/todo",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "title": "buy cycles",
+              "description": "atlas, hero, hercules"
+            },
+            "response": {
+              "status": 201,
+                "task": {
+                    "_id": "67e2ea5234e5fad9c362afe5",
+                    "title": "buy cycles",
+                    "description": "atlas, hero, hercules",
+                    "completed": "pending",
+                    "createdAt": "2025-03-25T17:39:30.615Z",
+                    "__v": 0
+                }
+            }
+          }
+        }
+    },
+
+
+    {
+        "requests": {
+          {
+            "name": "Get all tasks",
+            "method": "GET",
+            "url": "http://localhost:8000/api/todo",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "response": {
+              "status": 201,
+                "task": {
+                    {
+                        "_id": "67e2918a52141dbef65d8704",
+                        "title": "buy groceries",
+                        "description": "goodies, vegetables",
+                        "completed": "false",
+                        "createdAt": "2025-03-25T11:20:42.353Z",
+                        "__v": 0
+                    },
+                    {
+                        "_id": "67e2ea5234e5fad9c362afe5",
+                        "title": "buy cycles",
+                        "description": "atlas, hero, hercules",
+                        "completed": "pending",
+                        "createdAt": "2025-03-25T17:39:30.615Z",
+                        "__v": 0
+                    }
+                }
+            }
+          }
+        }
+    },
+
+
+    {
+        "requests": [
+          {
+            "name": "Get Task by ID",
+            "method": "GET",
+            "url": "http://localhost:8000/api/todo/67e2918a52141dbef65d8704",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "response": {
+              "status": 200,
+                "task": {
+                  "_id": "67e2918a52141dbef65d8704",
+                  "title": "buy groceries",
+                  "description": "goodies, vegetables",
+                  "completed": "false",
+                  "createdAt": "2025-03-25T11:20:42.353Z",
+                  "__v": 0
+                }
+              }
+            }
+        ]      
+    },
+
+
+    {
+        "requests": [
+          {
+            "name": "Update Task",
+            "method": "PUT",
+            "url": "http://localhost:8000/api/todo/67e2918a52141dbef65d8704",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "title": "Buy dryfuits",
+              "description": "walnuts, raisins, cashews"
+            },
+            "response": {
+              "status": 200,
+              "body": {
+                "message": "Task updated successfully",
+                "updatedTask": {
+                "_id": "67e2918a52141dbef65d8704",
+                "title": "buy some dry fruits",
+                "description": "walnuts, raisins, cashews",
+                "completed": "false",
+                "createdAt": "2025-03-25T11:20:42.353Z",
+                "__v": 0
+                }
+              }
+            }
+          }
+        ]
+      },
+      
+      
+      {
+        "requests": [
+          {
+            "name": "Delete Task by ID",
+            "method": "DELETE",
+            "url": "http://localhost:8000/api/todo/67e2992f52141dbef65d8711",
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "response": {
+              "status": 200,
+              "body": {
+                "message": "Task deleted successfully"
+              }
+            }
+          }
+        ]
+      }
+      
+]
